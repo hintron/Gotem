@@ -9,8 +9,6 @@ use amethyst::{
     input::{InputHandler, StringBindings},
 };
 
-
-
 pub struct PaddleSystem;
 
 impl<'s> System<'s> for PaddleSystem {

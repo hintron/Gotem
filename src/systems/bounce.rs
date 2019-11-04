@@ -3,7 +3,7 @@ use amethyst::{
     ecs::prelude::{Join, ReadStorage, System, WriteStorage},
 };
 
-use crate::gotem::{Ball, Side, Paddle, ARENA_HEIGHT};
+use crate::gotem::{Ball, Paddle, Side, ARENA_HEIGHT};
 
 pub struct BounceSystem;
 
@@ -25,7 +25,8 @@ impl<'s> System<'s> for BounceSystem {
 
             // Bounce at the top or the bottom of the arena.
             if (ball_y <= ball.radius && ball.velocity[1] < 0.0)
-                || (ball_y >= ARENA_HEIGHT - ball.radius && ball.velocity[1] > 0.0) {
+                || (ball_y >= ARENA_HEIGHT - ball.radius && ball.velocity[1] > 0.0)
+            {
                 ball.velocity[1] = -ball.velocity[1];
             }
 

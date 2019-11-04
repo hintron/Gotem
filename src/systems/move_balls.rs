@@ -23,4 +23,3 @@ impl<'s> System<'s> for MoveBallsSystem {
         }
     }
 }
-

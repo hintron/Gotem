@@ -9,7 +9,7 @@ pub const PADDLE_HEIGHT: f32 = 16.0;
 pub const PADDLE_WIDTH: f32 = 4.0;
 
 use amethyst::{
-    assets::{AssetStorage, Loader, Handle},
+    assets::{AssetStorage, Handle, Loader},
     core::timing::Time,
     core::transform::Transform,
     ecs::prelude::{Component, DenseVecStorage},
@@ -139,7 +139,6 @@ fn initialize_camera(world: &mut World) {
         .build();
 }
 
-
 fn load_sprite_sheet(world: &mut World) -> Handle<SpriteSheet> {
     // Load the sprite sheet necessary to render the graphics.
     // The texture is the pixel data
@@ -155,7 +154,6 @@ fn load_sprite_sheet(world: &mut World) -> Handle<SpriteSheet> {
         )
     };
 
-
     let loader = world.read_resource::<Loader>();
     let sprite_sheet_store = world.read_resource::<AssetStorage<SpriteSheet>>();
     loader.load(
@@ -165,7 +163,6 @@ fn load_sprite_sheet(world: &mut World) -> Handle<SpriteSheet> {
         &sprite_sheet_store,
     )
 }
-
 
 pub struct Ball {
     pub velocity: [f32; 2],
@@ -199,7 +196,6 @@ fn initialize_ball(world: &mut World, sprite_sheet_handle: Handle<SpriteSheet>) 
         .build();
 }
 
-
 /// ScoreBoard contains the actual score data
 #[derive(Default)]
 pub struct ScoreBoard {
@@ -222,12 +218,24 @@ fn initialize_scoreboard(world: &mut World) {
         &world.read_resource(),
     );
     let p1_transform = UiTransform::new(
-        "P1".to_string(), Anchor::TopMiddle, Anchor::TopMiddle,
-        -50., -50., 1., 200., 50.,
+        "P1".to_string(),
+        Anchor::TopMiddle,
+        Anchor::TopMiddle,
+        -50.,
+        -50.,
+        1.,
+        200.,
+        50.,
     );
     let p2_transform = UiTransform::new(
-        "P2".to_string(), Anchor::TopMiddle, Anchor::TopMiddle,
-        50., -50., 1., 200., 50.,
+        "P2".to_string(),
+        Anchor::TopMiddle,
+        Anchor::TopMiddle,
+        50.,
+        -50.,
+        1.,
+        200.,
+        50.,
     );
 
     let p1_score = world
@@ -238,7 +246,8 @@ fn initialize_scoreboard(world: &mut World) {
             "0".to_string(),
             [1., 1., 1., 1.],
             50.,
-        )).build();
+        ))
+        .build();
 
     let p2_score = world
         .create_entity()
@@ -248,7 +257,8 @@ fn initialize_scoreboard(world: &mut World) {
             "0".to_string(),
             [1., 1., 1., 1.],
             50.,
-        )).build();
+        ))
+        .build();
 
     world.add_resource(ScoreText { p1_score, p2_score });
 }
