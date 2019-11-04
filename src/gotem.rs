@@ -58,9 +58,8 @@ impl SimpleState for Gotem {
         // Load the spritesheet necessary to render the graphics.
         let sprite_sheet_handle = load_sprite_sheet(world);
 
-        // Add the component manually to the game, since there is no system that
-        // uses it, and systems automatically add it to the game
-        world.register::<Paddle>();
+        // This is done automatically by the paddle system
+        // world.register::<Paddle>();
 
         initialize_paddles(world, sprite_sheet_handle);
         initialize_camera(world);

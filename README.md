@@ -45,4 +45,6 @@ Improvements (Note: this is with the 0.13 docs while running with 0.12):
 
 * The specs links are dead. Point to new links.
 
-* amethyst::core::SystemDesc dne!
+* amethyst::core::SystemDesc dne! (0.13 new feature!)
+
+* let mut world = World::new(); is not needed
