@@ -32,7 +32,7 @@ fn main() -> amethyst::Result<()> {
         // Add the transform bundle which handles tracking entity positions
         .with_bundle(TransformBundle::new())?
         .with_bundle(input_bundle)?
-        .with(systems::PaddleSystem, "paddle_system", &["input_system"])
+            .with(systems::PaddleSystem, "paddle_system", &["input_system"])
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()
                 // The RenderToWindow plugin provides all the scaffolding for

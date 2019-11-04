@@ -1,4 +1,6 @@
-
+pub const BALL_VELOCITY_X: f32 = 75.0;
+pub const BALL_VELOCITY_Y: f32 = 50.0;
+pub const BALL_RADIUS: f32 = 2.0;
 
 pub const ARENA_HEIGHT: f32 = 100.0;
 pub const ARENA_WIDTH: f32 = 100.0;
@@ -13,6 +15,25 @@ use amethyst::{
     prelude::*,
     renderer::{Camera, ImageFormat, SpriteRender, SpriteSheet, SpriteSheetFormat, Texture},
 };
+
+pub struct Gotem;
+
+impl SimpleState for Gotem {
+    fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
+        let world = data.world;
+
+        // Load the spritesheet necessary to render the graphics.
+        let sprite_sheet_handle = load_sprite_sheet(world);
+
+        // This is done automatically by the paddle system
+        // world.register::<Paddle>();
+        world.register::<Ball>(); // <- add this line temporarily
+
+        initialize_ball(world, sprite_sheet_handle.clone()); // <- add this line
+        initialize_paddles(world, sprite_sheet_handle);
+        initialize_camera(world);
+    }
+}
 
 /// Initializes one paddle on the left, and one paddle on the right.
 fn initialize_paddles(world: &mut World, sprite_sheet: Handle<SpriteSheet>) {
@@ -45,25 +66,6 @@ fn initialize_paddles(world: &mut World, sprite_sheet: Handle<SpriteSheet>) {
         .with(Paddle::new(Side::Right))
         .with(right_transform)
         .build();
-}
-
-
-
-pub struct Gotem;
-
-impl SimpleState for Gotem {
-    fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
-        let world = data.world;
-
-        // Load the spritesheet necessary to render the graphics.
-        let sprite_sheet_handle = load_sprite_sheet(world);
-
-        // This is done automatically by the paddle system
-        // world.register::<Paddle>();
-
-        initialize_paddles(world, sprite_sheet_handle);
-        initialize_camera(world);
-    }
 }
 
 #[derive(PartialEq, Eq)]
@@ -130,4 +132,37 @@ fn load_sprite_sheet(world: &mut World) -> Handle<SpriteSheet> {
         (),
         &sprite_sheet_store,
     )
+}
+
+
+pub struct Ball {
+    pub velocity: [f32; 2],
+    pub radius: f32,
+}
+
+impl Component for Ball {
+    type Storage = DenseVecStorage<Self>;
+}
+
+/// Initializes one ball in the middle-ish of the arena.
+fn initialize_ball(world: &mut World, sprite_sheet_handle: Handle<SpriteSheet>) {
+    // Create the translation.
+    let mut local_transform = Transform::default();
+    local_transform.set_translation_xyz(ARENA_WIDTH / 2.0, ARENA_HEIGHT / 2.0, 0.0);
+
+    // Assign the sprite for the ball
+    let sprite_render = SpriteRender {
+        sprite_sheet: sprite_sheet_handle,
+        sprite_number: 1, // ball is the second sprite on the sprite sheet
+    };
+
+    world
+        .create_entity()
+        .with(sprite_render)
+        .with(Ball {
+            radius: BALL_RADIUS,
+            velocity: [BALL_VELOCITY_X, BALL_VELOCITY_Y],
+        })
+        .with(local_transform)
+        .build();
 }
