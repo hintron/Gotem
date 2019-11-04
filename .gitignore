@@ -7,3 +7,6 @@ thumbs.db
 *~
 *.rs.bk
 *.swp
+
+*.sublime-workspace
+*.sublime-project
