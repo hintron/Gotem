@@ -28,8 +28,21 @@ the `empty` feature.
 
 Notes:
 
+Specs Docs: https://specs.amethyst.rs/docs/tutorials/01_intro.html
+
+A system is nothing more than a function that runs once each frame and
+potentially makes some changes to components.
+
+
+
+Improvements (Note: this is with the 0.13 docs while running with 0.12):
+
 * Explain the whole `#` thing.
+
+* What's with the use amethyst::<Error> thing in the #?
 
 * Some of the # are wrong.
 
 * The specs links are dead. Point to new links.
+
+* amethyst::core::SystemDesc dne!
