@@ -1,4 +1,4 @@
 (
   title: "Got 'Em!",
-  dimensions: Some((500, 500)),
+  dimensions: Some((1920, 1080)),
 )

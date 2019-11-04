@@ -24,3 +24,12 @@ cargo run --features "empty"
 
 but be aware that as soon as you need any rendering you won't be able to run your game when using
 the `empty` feature.
+
+
+Notes:
+
+* Explain the whole `#` thing.
+
+* Some of the # are wrong.
+
+* The specs links are dead. Point to new links.

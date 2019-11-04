@@ -1,4 +1,9 @@
+mod gotem;
+
+use crate::gotem::Gotem;
+
 use amethyst::{
+    core::TransformBundle,
     prelude::*,
     renderer::{
         plugins::{RenderFlat2D, RenderToWindow},
@@ -8,9 +13,7 @@ use amethyst::{
     utils::application_root_dir,
 };
 
-pub struct Gotem;
 
-impl SimpleState for Gotem {}
 
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
@@ -20,13 +23,27 @@ fn main() -> amethyst::Result<()> {
 
     let assets_dir = app_root.join("assets");
 
-    let game_data = GameDataBuilder::default();
+    let game_data = GameDataBuilder::default()
+        // Add the transform bundle which handles tracking entity positions
+        .with_bundle(TransformBundle::new())?
+        .with_bundle(
+            RenderingBundle::<DefaultBackend>::new()
+                // The RenderToWindow plugin provides all the scaffolding for
+                // opening a window and drawing on it
+                .with_plugin(
+                    RenderToWindow::from_config_path(display_config_path)
+                        // .with_clear([0.0, 0.0, 0.0, 1.0]),
+                        // Cyan
+                        .with_clear([0.00196, 0.23726, 0.21765, 1.0]),
+                )
+                // RenderFlat2D plugin is used to render entities with a
+                // `SpriteRender` component.
+                .with_plugin(RenderFlat2D::default()),
+        )?;
 
-
-    let mut world = World::new();
+    // let mut world = World::new();
     let mut game = Application::new(assets_dir, Gotem, game_data)?;
     game.run();
-
 
     Ok(())
 }
