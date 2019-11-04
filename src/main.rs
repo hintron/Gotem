@@ -54,7 +54,7 @@ fn main() -> amethyst::Result<()> {
                 .with_plugin(RenderFlat2D::default()),
         )?;
 
-    let mut game = Application::new(assets_dir, Gotem, game_data)?;
+    let mut game = Application::new(assets_dir, Gotem::default(), game_data)?;
     game.run();
 
     Ok(())
