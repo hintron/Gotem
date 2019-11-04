@@ -1,11 +1,6 @@
 // You'll have to mark PADDLE_HEIGHT as public in gotem.rs
 use crate::gotem::{Paddle, Side, ARENA_HEIGHT, PADDLE_HEIGHT};
 
-// use amethyst::core::Transform;
-// use amethyst::derive::SystemDesc;
-// use amethyst::ecs::{Join, Read, ReadStorage, System, SystemData, World, WriteStorage};
-// use amethyst::input::{InputHandler, StringBindings};
-
 use amethyst::{
     core::transform::Transform,
     ecs::prelude::{Join, Read, ReadStorage, System, WriteStorage},
