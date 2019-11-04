@@ -2,7 +2,6 @@ mod gotem;
 mod systems;
 
 use crate::gotem::Gotem;
-
 use amethyst::{
     core::TransformBundle,
     prelude::*,
@@ -11,6 +10,7 @@ use amethyst::{
         types::DefaultBackend,
         RenderingBundle,
     },
+    ui::{RenderUi, UiBundle},
     utils::application_root_dir,
 };
 
@@ -52,8 +52,10 @@ fn main() -> amethyst::Result<()> {
                 )
                 // RenderFlat2D plugin is used to render entities with a
                 // `SpriteRender` component.
-                .with_plugin(RenderFlat2D::default()),
-        )?;
+                .with_plugin(RenderFlat2D::default())
+                .with_plugin(RenderUi::default())
+        )?
+        .with_bundle(UiBundle::<StringBindings>::new())?;
 
     let mut game = Application::new(assets_dir, Gotem::default(), game_data)?;
     game.run();
