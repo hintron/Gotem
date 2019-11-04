@@ -39,6 +39,7 @@ fn main() -> amethyst::Result<()> {
                 "collision_system",
                 &["paddle_system", "ball_system"],
             )
+            .with(systems::WinnerSystem, "winner_system", &["ball_system"])
         .with_bundle(
             RenderingBundle::<DefaultBackend>::new()
                 // The RenderToWindow plugin provides all the scaffolding for
